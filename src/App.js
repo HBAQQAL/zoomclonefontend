@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Register from "./Components/Register";
+import Login from "./Components/Login";
+import Home from "./Components/Home";
+import NotFound from "./Components/NotFound";
+import Navbar from "./Components/NavBar";
+import Dashbord from "./Components/Dashbord";
+import Meetings from "./Components/Meetings";
+import Teams from "./Components/Teams";
+import Notifications from "./Components/Notifications";
+import Profile from "./Components/Profile";
+import Support from "./Components/Support";
 function App() {
+  const [isLogin, setIsLoggin] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {isLogin && (
+        <>
+          <Navbar />
+
+          <div className="pages">
+            <Routes>
+              <Route path="/Dashbord" element={<Dashbord />} />
+              <Route path="/Meetings" element={<Meetings />} />
+              <Route path="/team" element={<Teams />} />
+              <Route path="/Notifications" element={<Notifications />} />
+              <Route path="/Profile" element={<Profile />} />
+              <Route path="/Support" element={<Support />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </>
+      )}
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+      </Routes>
+    </Router>
   );
 }
 
