@@ -8,24 +8,18 @@ import { MdNotificationsActive } from "react-icons/md";
 
 export const SidebarData = [
   {
-    title: "Dashbord",
+    title: "Tableau de bord",
     path: "/dashbord",
     icon: <AiIcons.AiFillHome />,
     cName: "nav-text",
   },
   {
-    title: "Meetings",
+    title: "Réunions",
     path: "/Meetings",
     icon: <SiGooglemeet />,
     cName: "nav-text",
   },
 
-  {
-    title: "Team",
-    path: "/team",
-    icon: <IoIcons.IoMdPeople />,
-    cName: "nav-text",
-  },
   {
     title: "Notifications",
     path: "/Notifications",
@@ -39,7 +33,7 @@ export const SidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Support",
+    title: "Assistance",
     path: "/support",
     icon: <IoIcons.IoMdHelpCircle />,
     cName: "nav-text",

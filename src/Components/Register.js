@@ -20,7 +20,7 @@ const Register = () => {
       return;
     }
     axios
-      .post("http://localhost:8080/api/v1/users/register", {
+      .post("http://localhost:8080/api/users/register", {
         name: name,
         email: email,
         password: password,
@@ -41,7 +41,7 @@ const Register = () => {
     <div className="main">
       <div className="login">
         <form className="registerForm">
-          <h1>Sign Up</h1>
+          <h1 className="loginh1">S'inscrire</h1>
           <div className="inputs">
             <div className="input">
               <FaUserAlt className="icon" />{" "}
@@ -67,7 +67,7 @@ const Register = () => {
               <RiLockPasswordFill className="icon" />{" "}
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -77,7 +77,7 @@ const Register = () => {
               <RiLockPasswordLine className="icon" />{" "}
               <input
                 type="password"
-                placeholder="Repeat Your password"
+                placeholder="Repeter votre mot de passe"
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
                 required
@@ -86,7 +86,8 @@ const Register = () => {
             <div className="input" id="check">
               <input type="checkbox" name="checkBox" />
               <label htmlFor="checkBox">
-                I agree all statements <u>in Terms of service</u>
+                J'accepte toutes les déclarations
+                <u>dans les conditions d'utilisation</u>
               </label>
             </div>
           </div>
@@ -97,14 +98,14 @@ const Register = () => {
               register();
             }}
           >
-            Register
+            S'inscrire
           </button>
         </form>
 
         <div className="elements">
           <img src="images/back.jpg" alt="logo" className="logo" />
           <Link to={"/login"}>
-            <a type="button">I am already member!</a>
+            <a type="button">Je suis déjà membre !</a>
           </Link>
         </div>
       </div>

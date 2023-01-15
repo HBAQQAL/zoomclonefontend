@@ -1,74 +1,80 @@
 import React from "react";
 import { FaQuestion, FaQuoteLeft } from "react-icons/fa";
+import Navbar from "./NavBar";
 
 const questions = [
   {
     id: 1,
-    question: "Do you need an account to use Zoom?",
+    question: "Comment commencer une reunions",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "Pour commencer une reunion il suffit de cliquer sur le button nouvelle reunion dans le tableau de bord et insirer touts les informations sur la reunions ",
   },
 
   {
     id: 2,
-    question: "Do I have to have a webcam to join on Meeting?",
+    question: "Comment commencer une reunions",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "Un compte n'est pas requis si vous rejoignez strictement Zoom Meetings en tant que participant. Si quelqu'un vous invite à sa réunion, ",
   },
   {
     id: 3,
-    question: "Can I record my meeting?",
+    question: "Puis-je enregistrer ma réunion ?",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "Vous pouvez enregister vous reunions en cliquant sur le button enregistrer dans la bare des outiles",
   },
   {
     id: 4,
-    question: "Where can I find my account owner?",
+    question: "Où puis-je trouver mes amis",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "L'interface participants n'est pas encore presente dans l'application mais tu peut envoyer des demandes seulement en envoyant le lien de reunion ",
   },
   {
     id: 5,
-    question: "How do I schedule a meeting?",
+    question: "Comment programmer une reunions",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "Pour programmer une reunion il suffit de cliquer sur le button programmer reunion dans le tableau de bord et insirer touts les informations sur la reunions ",
   },
   {
     id: 6,
-    question: "How do I schedule a meeting?",
+    question: "Comment inviter quelqu'un dans une reunions",
     answer:
-      "A Zoom account is not required if you are strictly joining Zoom Meetings as a participant. If someone invites you to their meeting, ",
+      "Pour inviter quelqu'un dans une reunions il suffit de lui passer le lien de la reunion",
   },
 ];
 
 const Support = () => {
   return (
-    <div className="container">
-      <div className="supportFaq">
-        <form>
-          <h2>FAQ! Need Help?</h2>
-          <div className="faqQuestion">
-            <input type="text" placeholder="question ?" />
-            <button>Send</button>
-          </div>
-        </form>
-      </div>
-      <h3>Frequently asked Questions</h3>
-      <div className="questions">
-        {questions.map((question) => {
-          return (
-            <div className="question" key={question.id}>
-              {" "}
-              <div>
-                {" "}
-                <FaQuoteLeft className="ico" /> <h3>{question.question}</h3>{" "}
+    <>
+      <Navbar />
+      <div className="pages">
+        <div className="container">
+          <div className="supportFaq">
+            <form>
+              <h2>FAQ! Besoin d'aide?</h2>
+              <div className="faqQuestion">
+                <input type="text" placeholder="question ?" />
+                <button>Envoyer</button>
               </div>
-              <h5>{question.answer}</h5>
-            </div>
-          );
-        })}
+            </form>
+          </div>
+          <h3>Questions fréquemment posées</h3>
+          <div className="questions">
+            {questions.map((question) => {
+              return (
+                <div className="question" key={question.id}>
+                  {" "}
+                  <div>
+                    {" "}
+                    <FaQuoteLeft className="ico" /> <h3>{question.question}</h3>{" "}
+                  </div>
+                  <h5>{question.answer}</h5>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

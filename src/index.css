@@ -181,7 +181,7 @@ span {
 }
 .logout {
   height: 30px;
-  width: 90px;
+  width: 180px;
   background-color: transparent;
   color: #7f89c7;
   outline: none;
@@ -502,8 +502,11 @@ h1 {
   margin-top: 2rem;
   width: 90%;
   height: fit-content;
-  border: 1px solid black;
+  border: none;
   text-align: center;
+  border: 1px solid beige;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 10px;
 }
 
 .joinMeetDialog {
@@ -599,6 +602,9 @@ h1 {
   width: 100%;
 }
 .left > div > label {
+  color: #1a83ff;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   width: 40%;
   font-size: 25px;
 }
@@ -621,8 +627,12 @@ h1 {
   width: 100%;
 }
 .right > div > label {
-  width: 40%;
-  font-size: 20px;
+  color: #1a83ff;
+  width: 50%;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 25px;
+  margin-right: 10px;
 }
 .right > div > textarea {
   width: 60%;
@@ -649,4 +659,52 @@ h1 {
 .createandback > button:hover {
   background-color: #0a1761;
   color: #d4d4d4;
+}
+tbody {
+  border: none;
+}
+.meetData {
+  height: 40px;
+  border: none;
+  margin-top: 5px;
+  background-color: #0a1761;
+}
+.meetData > td {
+  text-align: start;
+  background-color: #ffffff;
+  border: none;
+  font-size: large;
+  outline: none;
+  margin: 0%;
+}
+.meetData > td > .deleteMeet {
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+.meetData > td > .editMeet {
+  border: none;
+  color: #0a1761;
+  cursor: pointer;
+}
+th {
+  text-align: start;
+  color: #1a83ff;
+  font-size: x-large;
+}
+.loginh1 {
+  color: rgb(91, 203, 166);
+}
+.test {
+  width: 170px;
+  color: #fff;
+  display: flex;
+  text-decoration: none;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+  outline: none;
+}
+.a {
+  text-decoration: none;
 }

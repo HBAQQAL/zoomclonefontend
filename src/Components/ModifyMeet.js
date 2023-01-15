@@ -1,13 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded";
 
-const AddMeet = ({ back }) => {
-  const [inputs, setInputs] = useState({});
+const ModifyMeet = ({ setModifyMeet, data }) => {
+  const [inputs, setInputs] = useState({ ...data });
+  console.log(inputs);
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -15,27 +15,29 @@ const AddMeet = ({ back }) => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
   const handleSubmit = async (event) => {
-    console.log(inputs.startTime);
     const participants = inputs.people.split(",");
-    const res = await axios.post("http://localhost:8080/api/meet/create", {
-      name: inputs.name,
-      startTime: inputs.startTime,
-      private: inputs.isPrivate,
-      participants: participants,
-      description: inputs.description,
-    });
-    console.log(res.data);
-    back(false);
+    const res = await axios.put(
+      "http://localhost:9090/api/v1/meets/updateOne",
+      {
+        _id: data._id,
+        name: inputs.name,
+        startTime: inputs.startTime,
+        private: inputs.isPrivate,
+        participants: participants,
+        description: inputs.description,
+      }
+    );
+    console.log(res.status);
   };
-  console.log(back);
+
   return (
     <div className="addMeet">
       <form>
-        <h1>Créer une nouvelle réunion</h1>
+        <h1>Modify Meet</h1>
         <div className="formContent">
           <div className="left">
             <div>
-              <label htmlFor="MeetName">Nom de la reunion</label>
+              <label htmlFor="MeetName">Meet name</label>
               <input
                 name="name"
                 type="text"
@@ -45,35 +47,34 @@ const AddMeet = ({ back }) => {
               />
             </div>
             <div>
-              <label htmlFor="MeetTime">Date de debut</label>
+              <label htmlFor="MeetTime">Starting time</label>
               <input
                 name="startTime"
                 type="date"
                 id="MeetTime"
-                value={inputs.startTime || new Date().getTime()}
+                value={inputs.startTime || new Date()}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <label>Réunion privée</label>
+              <label>Private Meet</label>
               <input
                 name="isPrivate"
                 type="checkbox"
                 id="MeetType"
-                value={inputs.isPrivate || true}
+                value={inputs.private || true}
                 onChange={handleChange}
               />
             </div>
           </div>
           <div className="right">
             <div>
-              <label>Participants</label>
+              <label>People</label>
               <textarea
                 name="people"
                 id="peopleList"
                 cols="30"
                 rows="4"
-                placeholder="email.com,email.com"
                 value={inputs.people || ""}
                 onChange={handleChange}
               ></textarea>
@@ -85,7 +86,6 @@ const AddMeet = ({ back }) => {
                 id="peopleList"
                 cols="30"
                 rows="4"
-                placeholder=""
                 value={inputs.description || ""}
                 onChange={handleChange}
               ></textarea>
@@ -93,9 +93,9 @@ const AddMeet = ({ back }) => {
           </div>
         </div>
         <div className="createandback">
-          <button onClick={() => back(false)}>Annuler</button>
+          <button onClick={() => setModifyMeet(false)}>Cancel</button>
           <button type="button" onClick={handleSubmit}>
-            Créer
+            Modify
           </button>
         </div>
       </form>
@@ -103,4 +103,4 @@ const AddMeet = ({ back }) => {
   );
 };
 
-export default AddMeet;
+export default ModifyMeet;

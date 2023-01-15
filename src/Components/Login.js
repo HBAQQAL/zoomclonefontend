@@ -14,7 +14,7 @@ const Login = () => {
   const [isRemember, setIsRemember] = useState(true);
   const login = () => {
     axios
-      .post("http://localhost:8080/api/v1/users/login", {
+      .post("http://localhost:8080/api/users/login", {
         email: email,
         password: password,
       })
@@ -22,9 +22,8 @@ const Login = () => {
         if (res.status === 200) {
           const data = res.data;
           console.log(data);
-          alert(data.token);
-
           localStorage.setItem("token", "stage " + data.token);
+          window.location = "/";
         } else {
           alert(res.data);
         }
@@ -36,13 +35,13 @@ const Login = () => {
     <div className="main">
       <div className="login">
         <form className="registerForm">
-          <h1>Register</h1>
+          <h1 className="loginh1">S'inscrire</h1>
           <div className="inputs">
             <div className="input">
               <MdEmail className="icon" />{" "}
               <input
                 type="email"
-                placeholder="Your Email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -52,7 +51,7 @@ const Login = () => {
               <RiLockPasswordFill className="icon" />{" "}
               <input
                 type="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -70,7 +69,7 @@ const Login = () => {
                 }}
               />
               <label htmlFor="checkBox">
-                Remember <u>me</u>
+                Rester <u>connecté</u>
               </label>
             </div>
           </div>
@@ -81,12 +80,12 @@ const Login = () => {
               login();
             }}
           >
-            Login
+            S'inscrire
           </button>
         </form>
         <div className="elements">
           <img src="images/back.jpg" alt="logo" className="logo" />
-          <Link to={"/register"}>D'ont have an Account!</Link>
+          <Link to={"/register"}>N'avez pas de compte !</Link>
         </div>
       </div>
     </div>

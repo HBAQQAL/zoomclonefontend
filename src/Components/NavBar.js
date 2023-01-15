@@ -1,41 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import { IconContext } from "react-icons";
-import { IoLogoClosedCaptioning } from "react-icons/io";
+import { IoLogoPolymer } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 
 // <FaIcons.FaBars onClick={showSidebar} />
 
 function Navbar() {
+  const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(true);
 
-  const showSidebar = () => setSidebar(sidebar);
+  const showSidebar = () => setSidebar(true);
+
+  const logOut = useCallback(() => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  });
 
   return (
     <>
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navbar">
-          <Link to="#" className="menu-bars">
-            <h3
-              style={{
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-
-                textDecoration: "none",
-              }}
-              onClick={showSidebar}
-            >
-              <IoLogoClosedCaptioning style={{ fontSize: "50px" }} />
+          <Link to="#" className="menu-bars a">
+            <h3 className="test" onClick={showSidebar}>
+              {" "}
+              <IoLogoPolymer style={{ fontSize: "50px" }} />
+              ORMVA
             </h3>
           </Link>
 
-          <button type="button" className="logout">
+          <button type="button" className="logout" onClick={() => logOut()}>
             {" "}
-            <FiLogOut className="tt" /> Log Out
+            <FiLogOut className="tt" /> Se déconnecter
           </button>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
