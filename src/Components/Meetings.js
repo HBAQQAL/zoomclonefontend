@@ -14,7 +14,9 @@ const Meetings = () => {
   const [modifyMeet, setModifyMeet] = useState(false);
   const [selectedMeet, setSelectedMeet] = useState({});
   const getMeetings = async () => {
-    const response = await axios.get("http://localhost:8080/api/meet/getall");
+    const response = await axios.get(
+      "https://videocloneapi.onrender.com/api/meet/getall"
+    );
     setMeetings(response.data);
     console.log(response.data);
     console.log(meetings);
@@ -23,11 +25,14 @@ const Meetings = () => {
     getMeetings();
   }, []);
   const removeItem = async (itemId) => {
-    const reponse = await axios.post("http://localhost:8080/api/meet/delete", {
-      data: {
-        id: itemId,
-      },
-    });
+    const reponse = await axios.post(
+      "https://videocloneapi.onrender.com/api/meet/delete",
+      {
+        data: {
+          id: itemId,
+        },
+      }
+    );
     alert(reponse.data);
 
     const newMeetList = meetings.filter((meet) => meet._id !== itemId);

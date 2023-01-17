@@ -17,13 +17,16 @@ const AddMeet = ({ back }) => {
   const handleSubmit = async (event) => {
     console.log(inputs.startTime);
     const participants = inputs.people.split(",");
-    const res = await axios.post("http://localhost:8080/api/meet/create", {
-      name: inputs.name,
-      startTime: inputs.startTime,
-      private: inputs.isPrivate,
-      participants: participants,
-      description: inputs.description,
-    });
+    const res = await axios.post(
+      "https://videocloneapi.onrender.com/api/meet/create",
+      {
+        name: inputs.name,
+        startTime: inputs.startTime,
+        private: inputs.isPrivate,
+        participants: participants,
+        description: inputs.description,
+      }
+    );
     console.log(res.data);
     back(false);
   };

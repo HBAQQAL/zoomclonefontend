@@ -14,7 +14,7 @@ const Login = () => {
   const [isRemember, setIsRemember] = useState(true);
   const login = () => {
     axios
-      .post("http://localhost:8080/api/users/login", {
+      .post("https://videocloneapi.onrender.com/api/users/login", {
         email: email,
         password: password,
       })

@@ -20,7 +20,7 @@ const Register = () => {
       return;
     }
     axios
-      .post("http://localhost:8080/api/users/register", {
+      .post("https://videocloneapi.onrender.com/api/users/register", {
         name: name,
         email: email,
         password: password,
