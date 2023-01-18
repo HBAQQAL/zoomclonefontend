@@ -15,9 +15,7 @@ const Room = () => {
       "https://videocloneapi.onrender.com/api/users/getuserdata",
       { name: "hamza" }
     );
-    if (userdata.status != 200) {
-      navigate("/login");
-    }
+
     setuserid(userdata.data._id);
     setusername(userdata.data.name);
     console.log(userid, username);
