@@ -1,10 +1,11 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Room = () => {
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const [userid, setuserid] = useState("");
   const [username, setusername] = useState("");
@@ -14,6 +15,9 @@ const Room = () => {
       "https://videocloneapi.onrender.com/api/users/getuserdata",
       { name: "hamza" }
     );
+    if (userdata.status != 200) {
+      navigate("/login");
+    }
     setuserid(userdata.data._id);
     setusername(userdata.data.name);
     console.log(userid, username);
