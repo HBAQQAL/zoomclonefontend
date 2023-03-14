@@ -6,20 +6,25 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import { BsDisplayFill } from "react-icons/bs";
 import { AiFillSchedule } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Navbar from "./NavBar";
 import AddMeet from "./AddMeet";
-const usernameID = "1234567890";
 
 const Dashbord = () => {
   const navigate = useNavigate();
   const [joinDialog, setJoinDialog] = useState(true);
   const [addMeet, setAddMeet] = useState(false);
   const [joinMeetId, setJoinMeetId] = useState("");
+  const [username, setUsername] = useState("");
+  const [roomCode, setRoomCode] = useState(
+    "newroom213" + Math.floor(Math.random() * 100000)
+  );
+  // a CONST VARIABLE COLLED TEST WITH rondom number with 5digits
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
   var mm = String(today.getMonth() + 1).padStart(2, "0");
   var yyyy = today.getFullYear();
-  const roomCode = "42224424";
+
   const startMeet = useCallback(() => {
     navigate(`/room/${roomCode}`);
   });
@@ -32,12 +37,36 @@ const Dashbord = () => {
   };
 
   today = mm + "/" + dd + "/" + yyyy;
+
+  const usernameFetch = () => {
+    axios.defaults.headers.common["Authorization"] =
+      localStorage.getItem("token");
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios
+      .post("https://videocloneapi.onrender.com/api/users/getuserdata")
+      .then((res) => {
+        setUsername(res.data.name);
+        setRoomCode(res.data._id);
+        setRoomCode(res.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    usernameFetch();
+  }, []);
+  useEffect(() => {
+    console.log(roomCode);
+  }, [roomCode]);
   return (
     <>
       <Navbar />
       <div className="pages">
         <div className="container">
-          <h1 style={{ marginTop: "10px" }}>Tableau de bord</h1>
+          <h1 style={{ marginTop: "10px" }}>Bonjour {username} ! </h1>
           <div className="dashbordComponnents">
             <div className="meetPro">
               <div className="pro" onClick={startMeet}>
@@ -55,7 +84,7 @@ const Dashbord = () => {
               <div className="pro" onClick={() => setAddMeet(true)}>
                 {" "}
                 <AiFillSchedule className="ico" />
-                <h4>programme</h4>
+                <h4>Planifier</h4>
               </div>
               <div className="pro">
                 {" "}
@@ -71,6 +100,7 @@ const Dashbord = () => {
               <div className="buttom"></div>
             </div>
           </div>
+
           <div
             className={`joinMeetDialog ${
               joinDialog ? "HideJoinMeetDialog" : ""
@@ -99,7 +129,7 @@ const Dashbord = () => {
           </div>
           {addMeet && <AddMeet back={setAddMeet} />}
         </div>
-      </div>  
+      </div>
     </>
   );
 };

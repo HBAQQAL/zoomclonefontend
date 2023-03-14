@@ -4,12 +4,11 @@ import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import { SiGooglemeet } from "react-icons/si";
 import { CgProfile } from "react-icons/cg";
-import { MdNotificationsActive } from "react-icons/md";
 
 export const SidebarData = [
   {
     title: "Tableau de bord",
-    path: "/dashbord",
+    path: "/dashboard",
     icon: <AiIcons.AiFillHome />,
     cName: "nav-text",
   },
@@ -20,12 +19,6 @@ export const SidebarData = [
     cName: "nav-text",
   },
 
-  {
-    title: "Notifications",
-    path: "/Notifications",
-    icon: <MdNotificationsActive />,
-    cName: "nav-text",
-  },
   {
     title: "Profile",
     path: "/Profile",

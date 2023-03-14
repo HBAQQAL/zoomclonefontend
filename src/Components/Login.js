@@ -6,12 +6,22 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRemember, setIsRemember] = useState(true);
+  const [error, setError] = useState(false);
+  const [islogin, setIslogin] = useState(false);
+
+  useEffect(() => {
+    if (islogin === true) {
+      navigate("/dashboard");
+    }
+  }, [islogin]);
+
   const login = () => {
     axios
       .post("https://videocloneapi.onrender.com/api/users/login", {
@@ -23,12 +33,12 @@ const Login = () => {
           const data = res.data;
           console.log(data);
           localStorage.setItem("token", "stage " + data.token);
-          window.location = "/";
-        } else {
-          alert(res.data);
+          setIslogin(true);
         }
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        setError(true);
+      });
   };
 
   return (
@@ -57,17 +67,17 @@ const Login = () => {
                 required
               />
             </div>
+            <div>
+              {/* show incorect paossword or email password if error is set to true  */}
+              {error && (
+                <p className="errorpassormail">
+                  Email ou mot de passe incorrect
+                </p>
+              )}
+            </div>
 
-            <div className="input" id="check">
-              <input
-                type="checkbox"
-                name="checkBox"
-                value={isRemember}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setIsRemember(!isRemember);
-                }}
-              />
+            <div className="input checkboxinput" id="check">
+              <input type="checkbox" name="checkBox" />
               <label htmlFor="checkBox">
                 Rester <u>connecté</u>
               </label>

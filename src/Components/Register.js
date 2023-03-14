@@ -13,10 +13,13 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [error, setError] = useState(false);
+  const [errormessage, setErrormessage] = useState("");
 
   const register = () => {
     if (password !== rePassword) {
-      alert("password doesn't match");
+      setErrormessage("passwords ne sont pas identiques");
+      setError(true);
       return;
     }
     axios
@@ -27,13 +30,18 @@ const Register = () => {
       })
       .then((response) => {
         if (response.status === 200) {
-          alert("user inserted");
+          console.log(response.data);
+          window.location = "/login";
           return;
+        } else {
+          console.log(response.data);
+          setErrormessage("email existe déjà");
+          setError(true);
         }
-        alert("invalid data");
       })
       .catch((err) => {
-        alert(err);
+        setErrormessage("email existe déjà");
+        setError(true);
       });
   };
 
@@ -83,7 +91,14 @@ const Register = () => {
                 required
               />
             </div>
-            <div className="input" id="check">
+            {error && (
+              <span
+                style={{ color: "red", marginTop: "10px", fontSize: "14px" }}
+              >
+                {errormessage}
+              </span>
+            )}
+            <div className="input reglementdialog" id="check">
               <input type="checkbox" name="checkBox" />
               <label htmlFor="checkBox">
                 J'accepte toutes les déclarations

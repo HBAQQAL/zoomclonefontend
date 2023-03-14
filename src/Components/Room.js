@@ -3,52 +3,74 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BsWindowSidebar } from "react-icons/bs";
 
 const Room = () => {
   const navigate = useNavigate();
   const { roomId } = useParams();
   const [userid, setuserid] = useState("");
   const [username, setusername] = useState("");
+  const leaveMeeting = () => {
+    navigate("/dashboard");
+  };
+  const meeting = async (element) => {
+    console.log("meeting before  setuserdata");
 
-  const meet = async (element) => {
-    const userdata = await axios.post(
-      "https://videocloneapi.onrender.com/api/users/getuserdata",
-      { name: "hamza" }
-    );
+    await setuserdata();
 
-    setuserid(userdata.data._id);
-    setusername(userdata.data.name);
-    console.log(userid, username);
-
-    const appID = 746616351;
-    const serverSecret = "8a0aee1574626dd1c36af85bccee0d84";
+    console.log("meeting after setuserdata");
+    const appId = 1651147344;
+    const serverSecret = "67894c2c11d23ff299957557a150bf4c";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-      appID,
+      appId,
       serverSecret,
       roomId,
-      userid,
+      Date.now().toString(),
       username
     );
-    const zc = new ZegoUIKitPrebuilt.create(kitToken);
-    zc.joinRoom({
+
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    const roomParams = {
+      roomID: roomId,
+      roomName: roomId,
+      user: {
+        id: userid,
+        name: username,
+      },
+    };
+
+    zp.joinRoom({
       container: element,
+      scenario: {
+        mode: ZegoUIKitPrebuilt.GroupCall,
+      },
+      user: {
+        id: userid,
+        name: username,
+      },
       sharedLinks: [
         {
-          name: "Inviter",
-          url: `http://localhost:3000/room/${roomId}`,
+          name: "meeting link",
+          url: window.location.href,
         },
       ],
-      scenario: {
-        mode: ZegoUIKitPrebuilt.VideoConference,
-      },
+      showLeavingView: false,
+      onLeaveRoom: leaveMeeting,
     });
   };
 
-  return (
-    <div>
-      <div ref={meet} />
-    </div>
-  );
+  const setuserdata = async () => {
+    const userdata = await axios.post(
+      // 1
+      "https://videocloneapi.onrender.com/api/users/getuserdata"
+    );
+    console.log(userdata.data._id + " id inside setuserdata");
+    setuserid(userdata.data._id);
+    setusername(userdata.data.name);
+    console.log(username + " username inside setuserdata");
+  };
+
+  return <div ref={meeting} style={{ width: "100%", height: "100vh" }}></div>;
 };
 
 export default Room;

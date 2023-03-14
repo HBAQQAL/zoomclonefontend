@@ -15,52 +15,45 @@ import Support from "./Components/Support";
 import Room from "./Components/Room";
 
 function App() {
-  const [isLogin, setIsLoggin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
-
   const verifieToken = async () => {
     axios.defaults.headers.common["Authorization"] =
       localStorage.getItem("token");
     axios.defaults.headers.post["Content-Type"] =
       "application/x-www-form-urlencoded";
     const res = await axios.post(
-      "https://videocloneapi.onrender.com/api/users/getuserdata",
-      {
-        name: "hamza",
-      }
+      "https://videocloneapi.onrender.com/api/users/getuserdata"
     );
     console.log(await res.status);
     console.log(await res.data);
     if (res.status === 200) {
-      setIsLoggin(true);
-      dashbord();
+      setIsLogin(true);
     } else {
-      setIsLoggin(false);
-      loginpage();
+      setIsLogin(false);
     }
   };
-  const loginpage = useCallback(() => {
-    navigate("/login");
-  });
-  const dashbord = useCallback(() => {
-    navigate("/dashbord");
-  });
-
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      loginpage();
+      setIsLogin(false);
       return;
     } else {
       verifieToken();
     }
   }, []);
 
+  useEffect(() => {
+    if (isLogin === true) {
+      navigate("/dashboard");
+    }
+  }, [isLogin]);
+
   return (
     <Routes>
-      <Route path="/" element={<Dashbord />} />
+      <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/dashbord" element={<Dashbord />} />
+      <Route path="/dashboard" element={<Dashbord />} />
       <Route path="/meetings" element={<Meetings />} />
       <Route path="/teams" element={<Teams />} />
       <Route path="/notifications" element={<Notifications />} />

@@ -1,43 +1,109 @@
 import React from "react";
 import axios from "axios";
 import Navbar from "./NavBar";
-axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded";
-
-const profileData = {
-  name: "hamza",
-  age: 20,
-  email: "hamzabaqqal2002@gmail.com",
-  img: "https://images.unsplash.com/photo-1534215754734-18e55d13e346?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8eW91bmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-  job: "SOFTWARE DEVELOPER",
-  desc: "Hi my name is hamza baqqal and i'am a software developer",
-};
+import { useState, useEffect } from "react";
 
 const Profile = () => {
+  const [username, setusername] = useState("undefined");
+  const [email, setemail] = useState("undefined");
+  const [picture, setpicture] = useState(
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+  );
+  const [userid, setuserid] = useState("");
+  const [password, setpass] = useState("");
+  const [newpass, setnewpass] = useState("");
+
+  const valuechangehandler = (event) => {
+    setusername(event.target.value);
+  };
+  const newpasshandler = (event) => {
+    setnewpass(event.target.value);
+  };
+  const fetchuserdata = () => {
+    axios.defaults.headers.common["Authorization"] =
+      localStorage.getItem("token");
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios
+      .post("https://videocloneapi.onrender.com/api/users/getuserdata")
+      .then((res) => {
+        console.log(res.data);
+        setusername(res.data.name);
+        setemail(res.data.email);
+        setuserid(res.data._id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const save = async () => {
+    axios.defaults.headers.common["Authorization"] =
+      localStorage.getItem("token");
+
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios
+      .post("https://videocloneapi.onrender.com/api/users/updateuser", {
+        name: username,
+        password: newpass,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // fetch user data before rendering the page
+  useEffect(() => {
+    fetchuserdata();
+  }, []);
+
   return (
     <>
       <Navbar />
       <div className="pages">
-        <div className="container">
-          <h1 style={{ marginTop: "10px" }}>Profile</h1>
-          <h3>{profileData.job}</h3>
-          <img
-            src={profileData.img}
-            alt={profileData.name}
-            className="profileImg"
-          />
-          <div className="profileAbout">
-            <h4>A propos de moi</h4>
-            <p>{profileData.desc} ......</p>
-          </div>
-          <h3>Nom</h3>
-          <h5>{profileData.name}</h5>
-          <h3>Email</h3>
-          <h5>{profileData.email}</h5>
-          <div className="profileBtn">
-            <button className="removeBtn">REMOVE PROFILE</button>
-            <button className="editBtn">EDIT PROFILE</button>
+        <h1 className="profileheader">Profile</h1>
+        <div className="container profilecontainer">
+          <div>
+            <div className="picture">
+              <img src={picture} alt="mypic" />
+            </div>
+            <div className="profileinfo">
+              <div id="firstname">
+                {" "}
+                <label htmlFor="userId">userID:</label>{" "}
+                <input type="text" value={userid} disabled />
+              </div>
+              <div id="lastname">
+                {" "}
+                <label htmlFor="username">username:</label>{" "}
+                <input
+                  type="text"
+                  value={username}
+                  onChange={valuechangehandler}
+                />
+              </div>
+              <div id="email">
+                {" "}
+                <label htmlFor="email">email:</label>{" "}
+                <input type="email" value={email} disabled />
+              </div>
+              <div id="password">
+                {" "}
+                <label htmlFor="password">password:</label>{" "}
+                <input
+                  type="password"
+                  value={newpass}
+                  onChange={newpasshandler}
+                />
+              </div>
+              <div id="saveandback">
+                <button>back</button>
+                <button onClick={save}>save</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
