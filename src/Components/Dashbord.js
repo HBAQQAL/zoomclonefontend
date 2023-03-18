@@ -41,13 +41,14 @@ const Dashbord = () => {
   const usernameFetch = () => {
     axios.defaults.headers.common["Authorization"] =
       localStorage.getItem("token");
+
     axios.defaults.headers.post["Content-Type"] =
       "application/x-www-form-urlencoded";
+
     axios
       .post("https://videocloneapi.onrender.com/api/users/getuserdata")
       .then((res) => {
         setUsername(res.data.name);
-        setRoomCode(res.data._id);
         setRoomCode(res.data._id);
       })
       .catch((err) => {
@@ -66,7 +67,15 @@ const Dashbord = () => {
       <Navbar />
       <div className="pages">
         <div className="container">
-          <h1 style={{ marginTop: "10px" }}>Bonjour {username} ! </h1>
+          <h1
+            style={{
+              marginTop: "10px",
+              fontFamily: "revert",
+              color: "darkblue",
+            }}
+          >
+            Bonjour {username} !{" "}
+          </h1>
           <div className="dashbordComponnents">
             <div className="meetPro">
               <div className="pro" onClick={startMeet}>

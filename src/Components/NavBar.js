@@ -26,11 +26,7 @@ function Navbar() {
       <IconContext.Provider value={{ color: "#fff" }}>
         <div className="navbar">
           <Link to="#" className="menu-bars a">
-            <h3 className="test" onClick={showSidebar}>
-              {" "}
-              <IoLogoPolymer style={{ fontSize: "50px" }} />
-              ORMVA
-            </h3>
+            <img src="../images/logoupjv.png" className="logoupjv" />
           </Link>
 
           <button type="button" className="logout" onClick={() => logOut()}>

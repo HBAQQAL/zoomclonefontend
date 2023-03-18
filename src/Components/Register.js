@@ -22,6 +22,7 @@ const Register = () => {
       setError(true);
       return;
     }
+
     axios
       .post("https://videocloneapi.onrender.com/api/users/register", {
         name: name,

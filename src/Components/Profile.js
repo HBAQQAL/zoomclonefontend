@@ -7,8 +7,9 @@ const Profile = () => {
   const [username, setusername] = useState("undefined");
   const [email, setemail] = useState("undefined");
   const [picture, setpicture] = useState(
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+    "https://thumbs.dreamstime.com/b/female-user-avatar-profile-picture-icon-isolated-vector-illustration-flat-design-people-character-white-background-woman-146472409.jpg"
   );
+
   const [userid, setuserid] = useState("");
   const [password, setpass] = useState("");
   const [newpass, setnewpass] = useState("");

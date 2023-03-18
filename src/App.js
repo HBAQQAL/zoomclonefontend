@@ -55,8 +55,6 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<Dashbord />} />
       <Route path="/meetings" element={<Meetings />} />
-      <Route path="/teams" element={<Teams />} />
-      <Route path="/notifications" element={<Notifications />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/support" element={<Support />} />
       <Route path="/room/:roomId" element={<Room />} />

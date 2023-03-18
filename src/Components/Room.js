@@ -10,17 +10,18 @@ const Room = () => {
   const { roomId } = useParams();
   const [userid, setuserid] = useState("");
   const [username, setusername] = useState("");
+
   const leaveMeeting = () => {
     navigate("/dashboard");
   };
   const meeting = async (element) => {
     console.log("meeting before  setuserdata");
-
     await setuserdata();
-
     console.log("meeting after setuserdata");
+
     const appId = 1651147344;
     const serverSecret = "67894c2c11d23ff299957557a150bf4c";
+
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appId,
       serverSecret,
@@ -28,7 +29,6 @@ const Room = () => {
       Date.now().toString(),
       username
     );
-
     const zp = ZegoUIKitPrebuilt.create(kitToken);
     const roomParams = {
       roomID: roomId,
@@ -50,15 +50,14 @@ const Room = () => {
       },
       sharedLinks: [
         {
-          name: "meeting link",
-          url: window.location.href,
+          name: "Code du reunion",
+          url: roomId,
         },
       ],
       showLeavingView: false,
       onLeaveRoom: leaveMeeting,
     });
   };
-
   const setuserdata = async () => {
     const userdata = await axios.post(
       // 1

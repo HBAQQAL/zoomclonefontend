@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa"; 
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -33,6 +33,7 @@ const Login = () => {
           const data = res.data;
           console.log(data);
           localStorage.setItem("token", "stage " + data.token);
+          // equivalent to window.location = "/dashboard";
           setIslogin(true);
         }
       })
